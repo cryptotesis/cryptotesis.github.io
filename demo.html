@@ -23,6 +23,25 @@
     console.log(contents[0]['columns']);
     console.log(contents[0]['values']);
 
+    let max = contents[0]['values'].length;
+
+    table = document.getElementById("results");
+
+    for (i=0; i<max; i++)
+    {
+      row = document.createElement("tr");
+      cel1 = document.createElement("td");
+      cel2 = document.createElement("td");
+      cel1.innerText = contents[0]['values'][i][0];
+      cel2.innerText = contents[0]['values'][i][1];
+      row.appendChild(cel1);
+      row.appendChild(cel2);
+
+      table.appendChild(row);
+     }
+
+
+
 }
 
 start();
@@ -32,6 +51,8 @@ start();
   </head>
   <body>
     Output is in Javascript console
+
+    <table id="results"></table>
 
     <a href="https://sql.js.org/#/">Documentation</a>
   </body>
