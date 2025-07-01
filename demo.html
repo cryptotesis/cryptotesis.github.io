@@ -8,12 +8,36 @@
   <script>
     config = {
       locateFile: filename => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.13.0/sql-wasm.wasm`
+      l
     }
 
     // The `initSqlJs` function is globally provided by all of the main dist files if loaded in the browser.
     // We must specify this locateFile function if we are loading a wasm file from anywhere other than the current html page's folder.
 
     initSqlJs(config).then(function(SQL){
+
+
+        const dataPromise = fetch("./demo.db").then(res => res.arrayBuffer());
+        const [SQL, buf] = await Promise.all([sqlPromise, dataPromise])
+        const db = new SQL.Database(new Uint8Array(buf));
+
+
+
+// Prepare a statement
+      const stmt = db.prepare("SELECT ID, TITLE FROM PAPERS");
+      stmt.getAsObject({$start:1, $end:1});
+
+      // Bind new values
+      stmt.bind({$start:1, $end:2});
+      while(stmt.step()) { //
+        const row = stmt.getAsObject();
+        console.log('Here is a row: ' + JSON.stringify(row));
+      }
+
+
+
+/*
+
       //Create the database
       const db = new SQL.Database();
       // Run a query without reading the results
@@ -31,6 +55,7 @@
         const row = stmt.getAsObject();
         console.log('Here is a row: ' + JSON.stringify(row));
       }
+      */
     });
   </script>
   </head>
