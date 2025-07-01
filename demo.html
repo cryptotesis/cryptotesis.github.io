@@ -47,6 +47,17 @@
 
 start("SELECT ID, TITLE FROM PAPERS");
 
+function doQuery(query)
+{
+
+    table = document.getElementById("results");
+    table.innerHTML = "";
+
+    start(query);
+
+
+}
+
 
   </script>
   </head>
@@ -55,6 +66,8 @@ start("SELECT ID, TITLE FROM PAPERS");
     <table id="results"  border="1" cellpadding="5" cellspacing="0"  ></table>
 
     <br><br>
+
+    <button value="filter" name="button1" onclick="doQuery('select issn, name from magazine')">Magazine Catalog</button>
 
     <a href="https://sql.js.org/#/">Documentation</a>
   </body>
